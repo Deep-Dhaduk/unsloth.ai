@@ -1,520 +1,665 @@
-# Modern AI with Unsloth.ai - Complete Assignment
+# 🚀 Unsloth.ai Training Techniques - Modern AI Assignment
 
-## 📋 Assignment Overview
-
-This repository contains 5 comprehensive Jupyter notebooks covering modern AI training techniques using Unsloth.ai. Each notebook demonstrates a different training approach with detailed explanations, code, and examples.
-
-## 🎯 Notebooks Created
-
-### 1. Colab 1: Full Finetuning with SmolLM2 (`colab1_full_finetuning_smollm2.ipynb`)
-**What it does:**
-- Full parameter finetuning (all 135M parameters updated)
-- Uses SmolLM2-135M-Instruct model
-- Trains on Alpaca instruction dataset
-- Demonstrates complete model training
-
-**Key Concepts:**
-- Full finetuning vs LoRA
-- Gradient checkpointing
-- Chat template formatting
-- Memory-intensive training
-
-**Dataset:** `yahma/alpaca-cleaned` (instruction-following)
+> **A comprehensive collection of 5 Jupyter notebooks demonstrating advanced language model training methodologies using Unsloth.ai framework**
 
 ---
 
-### 2. Colab 2: LoRA Finetuning with SmolLM2 (`colab2_lora_finetuning_smollm2.ipynb`)
-**What it does:**
-- Parameter-efficient finetuning with LoRA
-- Only updates ~1-2% of parameters
-- Uses same model and dataset as Colab 1
-- Demonstrates LoRA adapters
+## � What's Inside This Repository?
 
-**Key Concepts:**
-- LoRA rank (r) and alpha parameters
-- Target modules selection
-- Adapter-based training
-- Memory efficiency
-
-**Dataset:** Same as Colab 1 for direct comparison
-
-**Key Difference:** `r=16` (not 0) enables LoRA mode
+This repository provides **5 production-ready notebooks**, each focusing on a distinct training paradigm for large language models. Every notebook includes comprehensive documentation, working code examples, and detailed explanations suitable for both learning and video demonstrations.
 
 ---
 
-### 3. Colab 3: DPO Reinforcement Learning (`colab3_dpo_reinforcement_learning.ipynb`)
-**What it does:**
-- Direct Preference Optimization (DPO)
-- Learns from human preferences
-- Aligns model with chosen vs rejected responses
-- No reward model needed
+## 🗂️ Complete Notebook Collection
 
-**Key Concepts:**
-- DPO beta parameter
-- Preference pair formatting
-- Alignment training
-- Human feedback learning
+| # | Notebook File | Training Method | Key Focus |
+|---|--------------|-----------------|-----------|
+| 1 | `colab1_full_finetuning_smollm2.ipynb` | Full Parameter Finetuning | Train all 135M parameters |
+| 2 | `colab2_lora_finetuning_smollm2.ipynb` | LoRA Adapters | Parameter-efficient training |
+| 3 | `colab3_dpo_reinforcement_learning.ipynb` | Direct Preference Optimization | Alignment from human feedback |
+| 4 | `colab4_grpo_reasoning_model.ipynb` | Group Relative Policy Optimization | Self-improving reasoning |
+| 5 | `colab5_continued_pretraining.ipynb` | Continued Pretraining | Domain knowledge adaptation |
 
-**Dataset:** `Intel/orca_dpo_pairs` (prompt + chosen + rejected)
+---
 
-**Format Required:**
+## 📖 Detailed Notebook Descriptions
+
+### 🔹 Notebook 1: Full Parameter Finetuning
+**File:** `colab1_full_finetuning_smollm2.ipynb`
+
+**Training Approach:**
+- Updates every single parameter in the model (all 135 million parameters)
+- Trains SmolLM2-135M-Instruct from HuggingFace
+- Uses Alpaca cleaned dataset for instruction-following tasks
+- Implements gradient checkpointing for memory optimization
+
+**Core Concepts Covered:**
+- Full finetuning methodology vs parameter-efficient methods
+- Gradient checkpointing techniques for large model training
+- Chat template formatting for conversational AI
+- Memory management strategies for training
+
+**Training Data:** `yahma/alpaca-cleaned` - instruction-response pairs for teaching models to follow instructions
+
+---
+
+### 🔹 Notebook 2: LoRA Finetuning
+**File:** `colab2_lora_finetuning_smollm2.ipynb`
+
+**Training Approach:**
+- Trains only adapter layers (~1-2% of total parameters)
+- Same base model (SmolLM2-135M-Instruct) as Notebook 1
+- Same dataset for direct performance comparison
+- Dramatically reduces memory requirements
+
+**Core Concepts Covered:**
+- Low-Rank Adaptation (LoRA) theory and implementation
+- LoRA rank (r) parameter selection and alpha configuration
+- Target module selection strategy
+- Adapter merging and deployment
+
+**Training Data:** `yahma/alpaca-cleaned` - identical to Notebook 1 for comparative analysis
+
+**Critical Configuration:** Setting `r=16` enables LoRA mode (not `r=0` which would be full finetuning)
+
+---
+
+### 🔹 Notebook 3: DPO Reinforcement Learning
+**File:** `colab3_dpo_reinforcement_learning.ipynb`
+
+**Training Approach:**
+- Implements Direct Preference Optimization algorithm
+- Learns from preference pairs (chosen vs rejected responses)
+- Aligns model behavior with human preferences
+- Eliminates need for separate reward model
+
+**Core Concepts Covered:**
+- DPO beta hyperparameter tuning
+- Preference dataset formatting requirements
+- Alignment training methodology
+- Human feedback integration
+
+**Training Data:** `Intel/orca_dpo_pairs` - contains triplets of (prompt, chosen_response, rejected_response)
+
+**Required Data Structure:**
 ```json
 {
-  "prompt": "Question",
-  "chosen": "Good response",
-  "rejected": "Bad response"
+  "prompt": "User question or instruction",
+  "chosen": "High-quality preferred response",
+  "rejected": "Lower-quality rejected response"
 }
 ```
 
 ---
 
-### 4. Colab 4: GRPO Reasoning Model (`colab4_grpo_reasoning_model.ipynb`)
-**What it does:**
-- Group Relative Policy Optimization (GRPO)
-- Trains reasoning models (like o1)
-- Self-improvement through trial and error
-- Automatic reward evaluation
+### 🔹 Notebook 4: GRPO Reasoning Model
+**File:** `colab4_grpo_reasoning_model.ipynb`
 
-**Key Concepts:**
-- Multiple solution generation
-- Reward function design
-- Self-supervised learning
-- Reasoning capability
+**Training Approach:**
+- Group Relative Policy Optimization for reasoning tasks
+- Self-improvement through multiple solution attempts
+- Automatic evaluation using reward functions
+- Builds reasoning capabilities similar to OpenAI's o1 model
 
-**Dataset:** Math problems (generated)
+**Core Concepts Covered:**
+- Multiple candidate solution generation
+- Reward function design and implementation
+- Self-supervised learning paradigm
+- Advanced reasoning skill development
 
-**How it works:**
-1. Generate multiple solutions
-2. Evaluate with reward function
-3. Learn from correct solutions
-4. Improve reasoning ability
+**Training Data:** Mathematically generated problems for reasoning tasks
 
----
-
-### 5. Colab 5: Continued Pretraining (`colab5_continued_pretraining.ipynb`)
-**What it does:**
-- Teaches model new domain knowledge
-- Pretraining on raw domain text
-- Expands vocabulary and knowledge
-- Domain adaptation
-
-**Key Concepts:**
-- Continued vs initial pretraining
-- Raw text training
-- Domain expertise
-- Knowledge expansion
-
-**Dataset:** `code_search_net` (Python code)
-
-**Use Cases:**
-- Medical/Legal domain
-- New programming languages
-- Multilingual capabilities
-- Recent events/knowledge
+**Training Pipeline:**
+1. Model generates multiple solution attempts
+2. Reward function evaluates each solution
+3. Model learns from successful solutions
+4. Reasoning capability improves iteratively
 
 ---
 
-## 🚀 Quick Start Guide
+### 🔹 Notebook 5: Continued Pretraining
+**File:** `colab5_continued_pretraining.ipynb`
 
-### Prerequisites
+**Training Approach:**
+- Extends pretrained model to new knowledge domains
+- Trains on raw, unformatted domain-specific text
+- Expands model's vocabulary and domain understanding
+- Adapts existing knowledge to specialized fields
 
-**Option 1: Google Colab (Recommended for Beginners)**
+**Core Concepts Covered:**
+- Continued pretraining vs initial pretraining
+- Domain adaptation strategies
+- Raw text processing and training
+- Knowledge expansion without catastrophic forgetting
+
+**Training Data:** `code_search_net` - Python source code for programming domain adaptation
+
+**Primary Applications:**
+- Medical and legal domain specialization
+- Programming language learning
+- Multilingual capability expansion
+- Incorporating recent knowledge and events
+
+---
+
+## ⚡ Getting Started
+
+### 🎯 Two Paths to Run These Notebooks
+
+#### **Path 1: Google Colab** *(Recommended - Zero Setup)*
+
+Google Colab is the fastest way to get started with no installation required.
+
+**Requirements:**
+- Google account with Colab access
+- Free T4 GPU tier is sufficient for all notebooks
+- No local installation necessary
+
+**Steps to Execute:**
+1. Navigate to [Google Colab](https://colab.research.google.com/)
+2. Upload any of the 5 `.ipynb` notebook files
+3. Configure GPU access: `Runtime` → `Change runtime type` → Select `GPU`
+4. Execute cells sequentially from top to bottom
+5. Each notebook is completely self-contained
+
+**Training Duration on Colab T4 GPU:**
+- Full Finetuning (Notebook 1): Approximately 10-15 minutes
+- LoRA Finetuning (Notebook 2): Approximately 5-10 minutes
+- DPO Training (Notebook 3): Approximately 10-15 minutes
+- GRPO Training (Notebook 4): Approximately 15-20 minutes
+- Continued Pretraining (Notebook 5): Approximately 15-20 minutes
+
+---
+
+#### **Path 2: Local Environment** *(Advanced Users)*
+
+For users with local GPU infrastructure or those wanting offline access.
+
+**System Requirements:**
+- Python 3.8 or higher installed
+- pip package manager
+- NVIDIA GPU with CUDA support (recommended)
+
+**Quick Setup Commands:**
+
 ```bash
-# You'll need a Google Colab account with GPU access
-# T4 GPU (free tier) is sufficient for all notebooks
-# No local setup required!
+# Windows PowerShell users:
+.\setup_venv.ps1
+
+# Linux / macOS / Git Bash users:
+./setup_venv.sh
 ```
 
-**Option 2: Local Setup with Virtual Environment**
-```bash
-# Python 3.8+ with pip installed
-# See VENV_SETUP.md for detailed instructions
+**Manual Setup Process:**
 
-# Quick setup:
-.\setup_venv.ps1  # Windows
-./setup_venv.sh   # Linux/Mac
+**Step 1 - Create Virtual Environment:**
+```bash
+# On Windows (PowerShell):
+.\venv\Scripts\Activate.ps1
+
+# On Linux/macOS:
+source venv/bin/activate
 ```
 
-### Running the Notebooks
+**Step 2 - Launch Notebook Interface:**
+```bash
+# Option A: Start Jupyter Notebook server
+jupyter notebook
 
-**Option A: Google Colab (Easiest)**
+# Option B: Open in VS Code with Jupyter extension
+code .
+```
 
-1. **Upload to Google Colab:**
-   - Go to [Google Colab](https://colab.research.google.com/)
-   - Upload each `.ipynb` file
-   - Enable GPU: Runtime → Change runtime type → GPU
+**Step 3 - Select Python Kernel:**
+- **Jupyter Interface:** Navigate to `Kernel` → `Change kernel` → Select `venv`
+- **VS Code:** Click kernel selector → `Python Environments` → Select `venv`
 
-2. **Run Cells Sequentially:**
-   - Each notebook is self-contained
-   - Run cells from top to bottom
-   - Follow the explanations
+**Performance Expectations:**
+- **With NVIDIA GPU:** Performance comparable to Google Colab
+- **CPU Only:** Training will be 5-10x slower (not recommended for production use)
 
-**Option B: Local Environment (Advanced)**
-
-1. **Setup Virtual Environment:**
-   ```bash
-   # Windows PowerShell
-   .\setup_venv.ps1
-   
-   # Linux/Mac/Git Bash
-   ./setup_venv.sh
-   ```
-
-2. **Activate Environment:**
-   ```bash
-   # Windows
-   .\venv\Scripts\Activate.ps1
-   
-   # Linux/Mac
-   source venv/bin/activate
-   ```
-
-3. **Open Jupyter or VS Code:**
-   ```bash
-   # Start Jupyter Notebook
-   jupyter notebook
-   
-   # Or use VS Code with Jupyter extension
-   code .
-   ```
-
-4. **Select Kernel:**
-   - In Jupyter: Kernel → Change kernel → venv
-   - In VS Code: Select kernel → Python Environments → venv
-
-📖 **Detailed setup instructions:** See [VENV_SETUP.md](VENV_SETUP.md)
-
-### Expected Runtime
-
-**Google Colab (T4 GPU):**
-   - Colab 1 (Full Finetuning): ~10-15 minutes
-   - Colab 2 (LoRA): ~5-10 minutes
-   - Colab 3 (DPO): ~10-15 minutes
-   - Colab 4 (GRPO): ~15-20 minutes
-   - Colab 5 (CPT): ~15-20 minutes
-
-**Local (varies by GPU):**
-   - With NVIDIA GPU: Similar to Colab
-   - CPU only: 5-10x slower (not recommended)
+📘 **For comprehensive setup instructions, refer to:** [VENV_SETUP.md](VENV_SETUP.md)
 
 ---
 
-## 📊 Comparison Table
+## 📊 Notebook Comparison Matrix
 
-| Notebook | Method | Parameters Updated | Memory | Speed | Use Case |
-|----------|--------|-------------------|--------|-------|----------|
-| Colab 1 | Full Finetuning | ALL (135M) | High | Slower | Critical tasks |
-| Colab 2 | LoRA | ~1-2M (1-2%) | Low | Faster | Most tasks |
-| Colab 3 | DPO | ~1-2M (LoRA) | Medium | Medium | Alignment |
-| Colab 4 | GRPO | ~1-2M (LoRA) | Medium | Medium | Reasoning |
-| Colab 5 | CPT | ~1-2M (LoRA) | Medium | Medium | New domains |
+| Training Method | Trainable Parameters | Memory Footprint | Training Speed | Optimal Use Cases |
+|----------------|---------------------|------------------|----------------|-------------------|
+| **Notebook 1** - Full Finetuning | ALL 135M (100%) | High | Slower | Mission-critical applications |
+| **Notebook 2** - LoRA | ~1-2M (1-2%) | Low | Faster | General-purpose tasks |
+| **Notebook 3** - DPO | ~1-2M (LoRA-based) | Medium | Medium | Model alignment & safety |
+| **Notebook 4** - GRPO | ~1-2M (LoRA-based) | Medium | Medium | Complex reasoning tasks |
+| **Notebook 5** - CPT | ~1-2M (LoRA-based) | Medium | Medium | Domain specialization |
 
 ---
 
-## 🎓 Learning Path
+## 🎓 Recommended Learning Sequence
 
-### Recommended Order:
-1. **Start with Colab 2** (LoRA) - Easiest and fastest
-2. **Then Colab 1** (Full Finetuning) - Compare differences
-3. **Move to Colab 5** (CPT) - Learn domain adaptation
-4. **Try Colab 3** (DPO) - Understand alignment
-5. **Finally Colab 4** (GRPO) - Advanced reasoning
+### Optimal Study Path for Maximum Understanding:
 
-### Key Concepts to Understand:
+**📍 Stage 1:** Begin with **Notebook 2 (LoRA Finetuning)**
+- Why: Shortest training time, easiest to understand
+- Learn: Parameter-efficient training fundamentals
 
-**Training Types:**
+**📍 Stage 2:** Progress to **Notebook 1 (Full Finetuning)**
+- Why: Direct comparison with LoRA approach
+- Learn: Trade-offs between efficiency and performance
+
+**📍 Stage 3:** Advance to **Notebook 5 (Continued Pretraining)**
+- Why: Understand domain adaptation techniques
+- Learn: How to teach models new knowledge domains
+
+**📍 Stage 4:** Explore **Notebook 3 (DPO)**
+- Why: Grasp model alignment concepts
+- Learn: Human preference learning mechanisms
+
+**📍 Stage 5:** Master **Notebook 4 (GRPO)**
+- Why: Most advanced reasoning techniques
+- Learn: Self-improving AI systems
+
+---
+
+## 🧠 Fundamental Concepts
+
+### Training Methodology Hierarchy:
 ```
 Pretraining → Continued Pretraining → Finetuning → Alignment
-    ↓                ↓                    ↓            ↓
-Learn language    New domain         Format      Preferences
+     ↓                 ↓                   ↓            ↓
+Learn Language    Acquire Domain      Format Tasks   User Preferences
+  Structure         Knowledge          & Skills         & Safety
 ```
 
-**Parameter Efficiency:**
+### Parameter Efficiency Comparison:
 ```
-Full Finetuning: 100% parameters
-LoRA: 1-2% parameters (adapters)
+Full Finetuning:  Updates 100% of parameters (135M for SmolLM2)
+LoRA Adaptation:  Updates 1-2% of parameters (~1-2M adapter weights)
 ```
 
-**Dataset Formats:**
+### Dataset Format Requirements:
+
+**Supervised Fine-Tuning (SFT):**
 ```
-SFT: Prompt + Response
-DPO: Prompt + Chosen + Rejected
-GRPO: Prompt only (generates responses)
-CPT: Raw text (no structure)
+Structure: Prompt + Response
+Example: {"instruction": "...", "response": "..."}
+```
+
+**Direct Preference Optimization (DPO):**
+```
+Structure: Prompt + Chosen + Rejected
+Example: {"prompt": "...", "chosen": "...", "rejected": "..."}
+```
+
+**Group Relative Policy Optimization (GRPO):**
+```
+Structure: Prompt only
+Process: Model generates multiple responses, learns from rewards
+```
+
+**Continued Pretraining (CPT):**
+```
+Structure: Raw unformatted text
+Example: Plain text documents without instruction formatting
 ```
 
 ---
 
-## 🎬 Video Recording Guide
+## 🎬 Video Documentation Guidelines
 
-For each notebook, record a video covering:
+### Complete Video Structure (Per Notebook)
 
-### 1. Introduction (2-3 minutes)
-- What technique you're demonstrating
-- Why it's important
-- What you'll show
+#### **Segment 1: Introduction & Context** *(2-3 minutes)*
+- Identify the specific training technique being demonstrated
+- Explain the importance and real-world applications
+- Preview the demonstration objectives
 
-### 2. Code Walkthrough (10-15 minutes)
-- Install dependencies
-- Load model and data
-- Explain key parameters
-- Show training configuration
-- Run training
-- Display results
+#### **Segment 2: Code Implementation Walkthrough** *(10-15 minutes)*
+- Execute dependency installation commands
+- Load and initialize the model and dataset
+- Explain critical hyperparameters and their purposes
+- Configure training settings and arguments
+- Run the complete training loop
+- Display and interpret output results
 
-### 3. Key Explanations (5-10 minutes)
-- **Colab 1:** What is full finetuning? When to use it?
-- **Colab 2:** What is LoRA? How does it save memory?
-- **Colab 3:** What is DPO? How does it align models?
-- **Colab 4:** What is GRPO? How do reasoning models work?
-- **Colab 5:** What is CPT? How to teach new knowledge?
+#### **Segment 3: Technical Deep Dive** *(5-10 minutes)*
 
-### 4. Dataset Format (3-5 minutes)
-- Show example data
-- Explain format requirements
-- Demonstrate preprocessing
+**For Notebook 1 (Full Finetuning):**
+- Explain full parameter training methodology
+- Discuss when full finetuning is necessary vs overkill
 
-### 5. Results & Inference (5-10 minutes)
-- Show training metrics
-- Run inference examples
-- Compare before/after
-- Discuss improvements
+**For Notebook 2 (LoRA):**
+- Describe Low-Rank Adaptation mechanism
+- Demonstrate memory savings and efficiency gains
 
-### 6. Tips & Best Practices (2-3 minutes)
-- Parameter tuning advice
-- Common mistakes
-- Recommendations
+**For Notebook 3 (DPO):**
+- Explain Direct Preference Optimization algorithm
+- Show how human feedback aligns model behavior
 
-**Total per video:** 25-40 minutes
+**For Notebook 4 (GRPO):**
+- Describe Group Relative Policy Optimization
+- Explain reasoning model training dynamics
 
----
+**For Notebook 5 (CPT):**
+- Explain continued pretraining methodology
+- Demonstrate domain knowledge acquisition
 
-## 📝 Assignment Submission Checklist
+#### **Segment 4: Data Format Demonstration** *(3-5 minutes)*
+- Display concrete dataset examples
+- Clarify format specifications and requirements
+- Walk through preprocessing and transformation steps
 
-- [ ] **Colab 1:** Full finetuning notebook + video
-- [ ] **Colab 2:** LoRA finetuning notebook + video  
-- [ ] **Colab 3:** DPO alignment notebook + video
-- [ ] **Colab 4:** GRPO reasoning notebook + video
-- [ ] **Colab 5:** Continued pretraining notebook + video
+#### **Segment 5: Results Analysis & Inference** *(5-10 minutes)*
+- Present training metrics and loss curves
+- Execute inference with diverse examples
+- Compare model performance before and after training
+- Discuss observable improvements and limitations
 
-For each:
-- [ ] Notebook runs successfully
-- [ ] All cells execute without errors
-- [ ] Results are shown
-- [ ] Video shows full walkthrough
-- [ ] Explanations are clear
+#### **Segment 6: Best Practices & Recommendations** *(2-3 minutes)*
+- Share hyperparameter tuning strategies
+- Highlight common pitfalls and mistakes
+- Provide actionable recommendations
+
+**Expected Total Duration:** 25-40 minutes per notebook
 
 ---
 
-## 🔧 Troubleshooting
+## ✅ Submission Verification Checklist
 
-### Common Issues:
+### Required Deliverables (5 Complete Sets)
 
-**1. Out of Memory Error:**
+**🔷 Notebook 1 Deliverables:**
+- [ ] Full finetuning notebook file
+- [ ] Comprehensive video demonstration
+
+**🔷 Notebook 2 Deliverables:**
+- [ ] LoRA finetuning notebook file
+- [ ] Comprehensive video demonstration
+
+**🔷 Notebook 3 Deliverables:**
+- [ ] DPO alignment notebook file
+- [ ] Comprehensive video demonstration
+
+**🔷 Notebook 4 Deliverables:**
+- [ ] GRPO reasoning notebook file
+- [ ] Comprehensive video demonstration
+
+**🔷 Notebook 5 Deliverables:**
+- [ ] Continued pretraining notebook file
+- [ ] Comprehensive video demonstration
+
+### Quality Assurance Criteria (For Each Notebook):
+- [ ] Successfully executes from start to finish
+- [ ] Zero cell execution errors
+- [ ] All training results properly displayed
+- [ ] Video includes complete code walkthrough
+- [ ] Explanations are clear and technically accurate
+
+---
+
+## 🔧 Common Issues & Solutions
+
+### Problem 1: Out of Memory (OOM) Errors
+
+**Symptoms:** Training crashes with CUDA out of memory error
+
+**Solutions:**
 ```python
-# Reduce batch size
-per_device_train_batch_size=1  # instead of 2
+# Solution A: Reduce batch size
+per_device_train_batch_size = 1  # Lower from default 2
 
-# Reduce sequence length
-max_seq_length=1024  # instead of 2048
+# Solution B: Reduce sequence length
+max_seq_length = 1024  # Lower from default 2048
 
-# Use gradient checkpointing
-use_gradient_checkpointing="unsloth"
+# Solution C: Enable gradient checkpointing
+use_gradient_checkpointing = "unsloth"
 ```
 
-**2. Slow Training:**
+---
+
+### Problem 2: Excessively Slow Training
+
+**Symptoms:** Training takes much longer than expected
+
+**Solutions:**
 ```python
-# Enable packing
-packing=True
+# Solution A: Enable sequence packing
+packing = True
 
-# Reduce max_steps
-max_steps=30  # instead of 60
+# Solution B: Reduce training steps
+max_steps = 30  # Lower from default 60
 
-# Use smaller dataset
-dataset = dataset.select(range(500))  # first 500 samples
+# Solution C: Use smaller dataset subset
+dataset = dataset.select(range(500))  # Train on first 500 samples only
 ```
 
-**3. Model Not Learning:**
+---
+
+### Problem 3: Model Not Learning Effectively
+
+**Symptoms:** Loss plateaus or doesn't decrease
+
+**Solutions:**
 ```python
-# Increase learning rate
-learning_rate=5e-4  # for LoRA/CPT
+# Solution A: Increase learning rate (for LoRA/CPT)
+learning_rate = 5e-4  # Increase from default
 
-# Increase LoRA rank
-r=32  # instead of 16
+# Solution B: Increase LoRA rank for more capacity
+r = 32  # Increase from default 16
 
-# More training steps
-max_steps=200
+# Solution C: Extend training duration
+max_steps = 200  # Increase from default
 ```
 
-**4. CUDA Out of Memory:**
+---
+
+### Problem 4: CUDA Memory Management Issues
+
+**Symptoms:** Inconsistent memory errors or fragmentation
+
+**Solutions:**
 ```python
-# Clear cache
+# Solution A: Clear GPU cache before training
 import torch
 torch.cuda.empty_cache()
 
-# Reduce batch size and accumulation
-per_device_train_batch_size=1
-gradient_accumulation_steps=8
+# Solution B: Adjust batch accumulation strategy
+per_device_train_batch_size = 1
+gradient_accumulation_steps = 8
 ```
 
 ---
 
-## 💡 Tips for Success
+## 💡 Success Strategies
 
-### 1. Start Simple
-- Use small models (SmolLM2-135M, Llama-3.2-1B)
-- Use small datasets (1000 samples)
-- Short training (60 steps)
-- Then scale up
+### Strategy 1: Progressive Complexity Approach
+**Start Small, Scale Gradually:**
+- Begin with compact models: SmolLM2-135M or Llama-3.2-1B
+- Use limited datasets: Start with 1000 samples
+- Run short training cycles: 60 steps initially
+- Incrementally increase complexity after validation
 
-### 2. Monitor Training
-- Watch loss curves
-- Check GPU memory
-- Time each run
-- Save checkpoints
+### Strategy 2: Comprehensive Monitoring
+**Track Everything:**
+- Continuously monitor loss curve trajectories
+- Watch GPU memory utilization in real-time
+- Measure and record training duration for each run
+- Implement checkpoint saving at regular intervals
 
-### 3. Test Thoroughly
-- Before/after comparisons
-- Multiple test cases
-- Different prompts
-- Edge cases
+### Strategy 3: Rigorous Testing Protocol
+**Validate Thoroughly:**
+- Conduct before-and-after performance comparisons
+- Test with diverse input scenarios
+- Use varied prompt formulations
+- Evaluate edge cases and boundary conditions
 
-### 4. Document Everything
-- Take screenshots
-- Save outputs
-- Record metrics
-- Note observations
+### Strategy 4: Detailed Documentation
+**Record Your Journey:**
+- Capture screenshots of key results
+- Save all training outputs and logs
+- Document metrics systematically
+- Record observations and insights
 
-### 5. Understand Parameters
-- Don't just copy values
-- Experiment with changes
-- Learn what each does
-- Find optimal settings
+### Strategy 5: Deep Parameter Understanding
+**Learn, Don't Copy:**
+- Avoid blindly copying configuration values
+- Experiment with parameter variations
+- Understand the impact of each hyperparameter
+- Iteratively tune to find optimal settings for your use case
 
 ---
 
-## 🌟 Advanced Extensions
+## 🌟 Advanced Exploration Opportunities
 
-Want to go further? Try:
-
-### 1. Combine Techniques
+### Extension 1: Multi-Stage Training Pipeline
+**Combine multiple techniques sequentially:**
 ```
-CPT → SFT → DPO
-(Domain → Format → Align)
+Stage 1: CPT (Domain Knowledge)
+   ↓
+Stage 2: SFT (Task Formatting)
+   ↓
+Stage 3: DPO (Preference Alignment)
 ```
 
-### 2. Export to Ollama
+### Extension 2: Model Deployment with Ollama
+**Export models for production use:**
 ```python
-model.save_pretrained_gguf("model", tokenizer, quantization_method="q4_k_m")
+# Quantize and export model
+model.save_pretrained_gguf(
+    "model_name",
+    tokenizer,
+    quantization_method="q4_k_m"
+)
 ```
 
-### 3. Multi-Stage Training
+### Extension 3: Sequential Training Stages
+**Implement comprehensive training workflow:**
 ```python
-# Stage 1: Continued Pretraining
-# Stage 2: Instruction Finetuning
-# Stage 3: DPO Alignment
+# Stage 1: Acquire domain knowledge through continued pretraining
+# Stage 2: Learn task-specific formatting via instruction finetuning
+# Stage 3: Align outputs with user preferences using DPO
 ```
 
-### 4. Custom Datasets
-- Create your own domain data
-- Collect preference pairs
-- Design reward functions
-- Build specialized models
+### Extension 4: Custom Dataset Development
+**Create specialized training data:**
+- Curate domain-specific text corpora
+- Gather and annotate preference pairs
+- Design custom reward functions for GRPO
+- Build specialized models for niche applications
 
-### 5. Larger Models
-- Try Llama-3.1-8B
-- Phi-3.5-mini
-- Mistral-7B
-- (Requires more GPU memory)
-
----
-
-## 📚 Key Resources
-
-### Official Documentation:
-- [Unsloth Docs](https://docs.unsloth.ai/)
-- [Unsloth GitHub](https://github.com/unslothai/unsloth)
-- [Unsloth Notebooks](https://github.com/unslothai/notebooks)
-
-### Tutorials:
-- [Fine-tuning Guide](https://docs.unsloth.ai/get-started/fine-tuning-llms-guide)
-- [RL Guide](https://docs.unsloth.ai/get-started/reinforcement-learning-rl-guide)
-- [CPT Guide](https://docs.unsloth.ai/basics/continued-pretraining)
-
-### Datasets:
-- [Hugging Face Datasets](https://huggingface.co/datasets)
-- [Alpaca Dataset](https://huggingface.co/datasets/yahma/alpaca-cleaned)
-- [DPO Pairs](https://huggingface.co/datasets/Intel/orca_dpo_pairs)
-- [Code Datasets](https://huggingface.co/datasets/code_search_net)
+### Extension 5: Larger Model Experimentation
+**Scale to more powerful architectures:**
+- Llama-3.1-8B (8 billion parameters)
+- Phi-3.5-mini (optimized efficiency)
+- Mistral-7B (strong general performance)
+- ⚠️ Note: Requires significantly more GPU memory (16GB+ VRAM)
 
 ---
 
-## 🎯 Grading Criteria (Reference)
+## 📚 Essential Resources & References
 
-Based on assignment requirements:
+### Official Unsloth Documentation
+- **[Complete Documentation](https://docs.unsloth.ai/)** - Comprehensive framework guide
+- **[GitHub Repository](https://github.com/unslothai/unsloth)** - Source code and issues
+- **[Example Notebooks](https://github.com/unslothai/notebooks)** - Additional tutorials
 
-1. **Code Execution (40%):**
-   - All notebooks run successfully
-   - No errors
-   - Proper outputs
+### Training Methodology Guides
+- **[LLM Fine-tuning Guide](https://docs.unsloth.ai/get-started/fine-tuning-llms-guide)** - Comprehensive finetuning tutorial
+- **[Reinforcement Learning Guide](https://docs.unsloth.ai/get-started/reinforcement-learning-rl-guide)** - RL training methods
+- **[Continued Pretraining Guide](https://docs.unsloth.ai/basics/continued-pretraining)** - Domain adaptation techniques
 
-2. **Video Quality (30%):**
-   - Clear explanations
-   - Detailed walkthrough
-   - Shows input/output
-   - Explains concepts
-
-3. **Understanding (20%):**
-   - Explains how it works
-   - Dataset format understanding
-   - Parameter knowledge
-   - Use case awareness
-
-4. **Completeness (10%):**
-   - All 5 notebooks
-   - All 5 videos
-   - Proper documentation
-   - Timely submission
+### Dataset Repositories
+- **[Hugging Face Datasets Hub](https://huggingface.co/datasets)** - Central dataset repository
+- **[Alpaca Cleaned Dataset](https://huggingface.co/datasets/yahma/alpaca-cleaned)** - Instruction-following data
+- **[Orca DPO Pairs](https://huggingface.co/datasets/Intel/orca_dpo_pairs)** - Preference pair examples
+- **[Code Search Net](https://huggingface.co/datasets/code_search_net)** - Programming language datasets
 
 ---
 
-## 🤝 Support
+## 🎯 Assignment Evaluation Framework
 
-If you need help:
+### Assessment Criteria Breakdown
 
-1. **Check notebook comments:** Detailed explanations in each cell
-2. **Read summaries:** Each notebook has comprehensive summary section
-3. **Review documentation:** Links to official resources
-4. **Experiment:** Try different parameters and observe
+**Component 1: Code Execution Quality (40% Weight)**
+- All 5 notebooks execute successfully from start to finish
+- Zero runtime errors or exceptions
+- All cells produce expected outputs
+- Training completes and results are displayed
 
----
+**Component 2: Video Demonstration Quality (30% Weight)**
+- Clear and articulate explanations throughout
+- Comprehensive code walkthrough with context
+- Demonstrates inputs, processing, and outputs
+- Explains underlying concepts and methodology
 
-## 📄 Summary
+**Component 3: Technical Understanding (20% Weight)**
+- Articulates how each training method functions
+- Demonstrates understanding of dataset format requirements
+- Shows knowledge of hyperparameter impacts
+- Identifies appropriate use cases for each technique
 
-You now have **5 complete notebooks** covering:
-
-✅ **Full Finetuning** - Train all parameters  
-✅ **LoRA Finetuning** - Efficient adapter training  
-✅ **DPO Alignment** - Learn human preferences  
-✅ **GRPO Reasoning** - Self-improving reasoning models  
-✅ **Continued Pretraining** - Learn new domains  
-
-Each notebook is:
-- ✅ Fully functional and ready to run
-- ✅ Extensively documented with explanations
-- ✅ Contains working examples
-- ✅ Includes best practices
-- ✅ Designed for video walkthrough
-
-**Good luck with your assignment! 🚀**
+**Component 4: Submission Completeness (10% Weight)**
+- All 5 notebooks submitted
+- All 5 video demonstrations included
+- Proper documentation and comments
+- Timely submission within deadline
 
 ---
 
-## 📞 Contact
+## 🤝 Support & Assistance
 
-For questions about the notebooks or techniques:
-- Review the detailed comments in each notebook
-- Check the summary sections
-- Refer to official Unsloth documentation
+### Self-Service Resources (Recommended First Steps)
 
-**Remember:** The best way to learn is by running the code, experimenting with parameters, and understanding what each technique does!
+1. **Notebook Inline Comments**
+   - Each cell contains detailed explanatory comments
+   - Technical rationale provided for all major decisions
+
+2. **Summary Sections**
+   - Every notebook includes comprehensive summary sections
+   - Key concepts and takeaways clearly documented
+
+3. **Official Documentation**
+   - Links to authoritative Unsloth resources provided
+   - Follow references for deeper technical details
+
+4. **Hands-On Experimentation**
+   - Modify parameters and observe outcomes
+   - Learning through experimentation is most effective
+
+---
+
+## 📄 Repository Summary
+
+### What You Have Access To:
+
+This repository provides **5 production-ready training notebooks**, each demonstrating a distinct approach:
+
+✅ **Full Parameter Finetuning** - Complete model parameter training  
+✅ **LoRA Adapter Training** - Parameter-efficient adaptation  
+✅ **DPO Preference Alignment** - Human feedback integration  
+✅ **GRPO Reasoning Enhancement** - Self-improving reasoning systems  
+✅ **Continued Pretraining** - Domain knowledge acquisition  
+
+### Quality Assurance:
+
+Each notebook guarantees:
+- ✅ Complete functionality with zero configuration required
+- ✅ Extensive inline documentation and explanations
+- ✅ Working code examples that execute successfully
+- ✅ Best practices and optimization strategies
+- ✅ Structure optimized for video demonstration
+
+**Best of luck with your assignment! 🚀**
+
+---
+
+## 📞 Getting Help
+
+### When You Need Assistance:
+
+**Step 1:** Examine the detailed comments within each notebook cell  
+**Step 2:** Review the comprehensive summary sections in each notebook  
+**Step 3:** Consult the official Unsloth documentation linked throughout  
+
+### Learning Philosophy:
+
+**💡 Master through practice:** The most effective learning comes from executing code, experimenting with hyperparameters, and understanding the mechanics of each training technique!
