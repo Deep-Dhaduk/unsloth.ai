@@ -2,6 +2,11 @@
 
 > **A comprehensive collection of 5 Jupyter notebooks demonstrating advanced language model training methodologies using Unsloth.ai framework**
 
+## 🎥 Video Tutorials
+
+📺 **Complete video walkthroughs explaining all code implementations are available here:**  
+[**🔗 Watch Video Recordings on Google Drive**](https://drive.google.com/drive/folders/1JOZruqEPu4pZzN5wsZCWYmakPnKmj7hT?usp=sharing)
+
 ---
 
 ## � What's Inside This Repository?
